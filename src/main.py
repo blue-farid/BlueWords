@@ -1,5 +1,8 @@
+import string
+
 import command
 from command import Attribute
+
 
 def process(input):
     input = input.strip()
