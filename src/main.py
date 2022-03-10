@@ -62,7 +62,7 @@ def error(exp):
 
 
 def main():
-    while(True):
+    while True:
         try:
             res = process(input())
             if res == -1:
