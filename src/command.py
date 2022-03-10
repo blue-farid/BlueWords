@@ -2,6 +2,7 @@ from enum import Enum
 
 
 class Attribute(Enum):
+    OPTIONS = "options"
     MIN = "min_length"
     MAX = "max_length"
     START = "start_with"
