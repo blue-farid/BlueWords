@@ -1,5 +1,3 @@
-import string
-
 import command
 from command import Attribute
 
@@ -16,10 +14,12 @@ def process(input):
 
     inputs = input.split(" ")
     if len(inputs) == 1:
-        if inputs[0] == Attribute.OPTIONS:
+        if inputs[0] == Attribute.OPTIONS.value:
             command.print_options()
         elif inputs[0] == "exit":
             return 1
+        elif inputs[0] == "execute":
+            command.execute()
         else:
             return -1
     elif len(inputs) == 2:
@@ -61,7 +61,10 @@ def process(input):
 
 
 def error(exp):
-    print("bad input!")
+    if exp is not None:
+        print(exp.args)
+    else:
+        print("bad input!")
 
 
 def main():
@@ -75,3 +78,6 @@ def main():
         except Exception as exp:
             error(exp)
 
+
+if __name__ == '__main__':
+    main()

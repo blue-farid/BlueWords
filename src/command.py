@@ -62,3 +62,7 @@ def set_has_upper(has_upper):
     options_dict[Attribute.HAS_UPPER] = has_upper
 
 
+def execute():
+    from blue_words import generate_wordlist
+    for word in generate_wordlist(options_dict):
+        print(word)
