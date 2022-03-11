@@ -1,3 +1,11 @@
+"""
+        BlueWords Application - A wordlist generator
+
+        __author__ = Farid Masjedi
+        __version__ = 1.0.2
+        __email__ = farid_127@outlook.com
+"""
+
 import command
 from command import Attribute
 
