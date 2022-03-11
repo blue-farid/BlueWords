@@ -12,7 +12,7 @@ def decrease_length(length, n):
     return res
 
 
-def generate_and_add_word(start, prefix, end, must_include, includes, length, k, wordlist_file):
+def generate_and_add_word(start, prefix, end, must_include, includes, length, k, wordlist_file, counter):
     if k == 0:
         if must_include != "":
             temp_list = [must_include]
@@ -22,16 +22,19 @@ def generate_and_add_word(start, prefix, end, must_include, includes, length, k,
                 word = start + ''.join(word) + end + "\n"
                 print(word, end="")
                 wordlist_file.write(word)
+                counter += 1
         else:
             word = start + prefix + end + "\n"
             print(word, end="")
             wordlist_file.write(word)
-        return
+            counter += 1
+        return counter
 
     for i in range(length):
         new_prefix = prefix + str(includes[i])
-        generate_and_add_word(start, new_prefix, end, must_include, includes,
-                              length, k - 1, wordlist_file)
+        counter = generate_and_add_word(start, new_prefix, end, must_include, includes,
+                                        length, k - 1, wordlist_file, counter)
+    return counter
 
 
 def generate_wordlist(options_dict):
@@ -74,7 +77,8 @@ def generate_wordlist(options_dict):
     path = Path("wordlist.txt")
     wordlist_file = path.open("a")
 
+    counter = 0
     for k in range(min_length, max_length + 1):
-        generate_and_add_word(start, word, end, must_include, includes, len(includes), k, wordlist_file)
-
+        counter += generate_and_add_word(start, word, end, must_include, includes, len(includes), k, wordlist_file, 0)
+    print(f"\n{counter} words has been generated!")
     wordlist_file.close()

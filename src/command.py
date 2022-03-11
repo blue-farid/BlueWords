@@ -83,19 +83,19 @@ def set_include(include):
 
 
 def set_has_digit(has_digit):
-    options_dict[Attribute.HAS_DIGIT.value] = strtobool(has_digit)
+    options_dict[Attribute.HAS_DIGIT.value] = has_digit
 
 
 def set_has_special(has_special):
-    options_dict[Attribute.HAS_SPECIAL.value] = strtobool(has_special)
+    options_dict[Attribute.HAS_SPECIAL.value] = has_special
 
 
 def set_has_lower(has_lower):
-    options_dict[Attribute.HAS_LOWER.value] = strtobool(has_lower)
+    options_dict[Attribute.HAS_LOWER.value] = has_lower
 
 
 def set_has_upper(has_upper):
-    options_dict[Attribute.HAS_UPPER.value] = strtobool(has_upper)
+    options_dict[Attribute.HAS_UPPER.value] = has_upper
 
 
 def clear_screen():

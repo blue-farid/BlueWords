@@ -1,1 +1,1 @@
-{"min_length": 2, "max_length": 3, "start_with": "?", "end_with": "?", "include": "?", "has_special": false, "has_digit": true, "has_upper": true, "has_lower": true}
+{"min_length": 11, "max_length": 11, "start_with": "?", "end_with": "?", "include": "Masjedi", "has_special": false, "has_digit": true, "has_upper": false, "has_lower": false}

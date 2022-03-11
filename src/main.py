@@ -66,7 +66,7 @@ def process(input):
 
 def error(exp):
     if exp is not None:
-        print(exp.__traceback__)
+        print(exp.with_traceback(exp.__traceback__))
     else:
         print("bad input!")
 
