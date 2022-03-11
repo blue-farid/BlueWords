@@ -61,3 +61,5 @@ def generate_wordlist(options_dict):
 
     for k in range(min_length, max_length + 1):
         generate_and_add_word(word, end, includes, len(includes), k, wordlist_file)
+
+    wordlist_file.close()
