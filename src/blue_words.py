@@ -14,11 +14,16 @@ def decrease_length(length, n):
 
 def generate_and_add_word(start, prefix, end, must_include, includes, length, k, wordlist_file):
     if k == 0:
-        temp_list = [must_include]
-        temp_list.extend(prefix)
-        temp_list2 = list(distinct_permutations(temp_list))
-        for word in temp_list2:
-            word = start + ''.join(word) + end + "\n"
+        if must_include != "":
+            temp_list = [must_include]
+            temp_list.extend(prefix)
+            temp_list2 = list(distinct_permutations(temp_list))
+            for word in temp_list2:
+                word = start + ''.join(word) + end + "\n"
+                print(word, end="")
+                wordlist_file.write(word)
+        else:
+            word = start + prefix + end + "\n"
             print(word, end="")
             wordlist_file.write(word)
         return
@@ -31,11 +36,11 @@ def generate_and_add_word(start, prefix, end, must_include, includes, length, k,
 
 def generate_wordlist(options_dict):
     word = ""
-    start = options_dict[Attribute.START]
-    end = options_dict[Attribute.END]
-    must_include = options_dict[Attribute.INCLUDE]
-    min_length = options_dict[Attribute.MIN]
-    max_length = options_dict[Attribute.MAX]
+    start = options_dict[Attribute.START.value]
+    end = options_dict[Attribute.END.value]
+    must_include = options_dict[Attribute.INCLUDE.value]
+    min_length = options_dict[Attribute.MIN.value]
+    max_length = options_dict[Attribute.MAX.value]
 
     if start != "?":
         min_length = decrease_length(min_length, len(start))
@@ -56,13 +61,13 @@ def generate_wordlist(options_dict):
     else:
         must_include = ""
 
-    if options_dict[Attribute.HAS_LOWER]:
+    if options_dict[Attribute.HAS_LOWER.value]:
         includes.extend(string.ascii_lowercase)
-    if options_dict[Attribute.HAS_UPPER]:
+    if options_dict[Attribute.HAS_UPPER.value]:
         includes.extend(string.ascii_uppercase)
-    if options_dict[Attribute.HAS_DIGIT]:
+    if options_dict[Attribute.HAS_DIGIT.value]:
         includes.extend(string.digits)
-    if options_dict[Attribute.HAS_SPECIAL]:
+    if options_dict[Attribute.HAS_SPECIAL.value]:
         includes.extend(string.punctuation)
 
     # open the wordlist file
