@@ -66,7 +66,7 @@ def generate_wordlist(options_dict):
         includes.extend(string.punctuation)
 
     # open the wordlist file
-    path = Path("src/wordlist.txt")
+    path = Path("wordlist.txt")
     wordlist_file = path.open("a")
 
     for k in range(min_length, max_length + 1):
