@@ -1,3 +1,4 @@
+import os
 from enum import Enum
 
 
@@ -9,9 +10,9 @@ class Attribute(Enum):
     END = "end_with"
     INCLUDE = "include"
     HAS_DIGIT = "has_digit"
-    HAS_SPECIAL = "has_special_character"
-    HAS_LOWER = "has_lower_case_character"
-    HAS_UPPER = "has_upper_case_character"
+    HAS_SPECIAL = "has_special"
+    HAS_LOWER = "has_lower"
+    HAS_UPPER = "has_upper"
 
 
 options_dict = {Attribute.MIN: 5,
@@ -28,7 +29,7 @@ options_dict = {Attribute.MIN: 5,
 
 def print_options():
     for option, value in options_dict.items():
-        print(f"{option} = {value}")
+        print(f"{option.value} = {value}")
 
 
 def set_min_length(min):
@@ -67,7 +68,12 @@ def set_has_upper(has_upper):
     options_dict[Attribute.HAS_UPPER] = has_upper
 
 
+def clear_screen():
+    os.system('clear')
+
+
 def execute():
     from blue_words import generate_wordlist
-    for word in generate_wordlist(options_dict):
+    wordlist = generate_wordlist(options_dict)
+    for word in wordlist:
         print(word)

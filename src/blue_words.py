@@ -10,15 +10,15 @@ def decrease_length(length, n):
     return res
 
 
-def generate_and_add_word(prefix, includes, length, wordlist, suffix):
-    if length == 0:
-        wordlist.append(prefix.join(suffix))
+def generate_and_add_word(prefix, suffix, includes, length, k, wordlist):
+    if k == 0:
+        wordlist.append(prefix + suffix)
         return
 
     for i in range(length):
-        new_prefix = prefix.join(includes[i])
-        return generate_and_add_word(new_prefix, includes,
-                                     length - 1, wordlist, suffix)
+        new_prefix = prefix + str(includes[i])
+        generate_and_add_word(new_prefix, suffix, includes,
+                              length, k - 1, wordlist)
 
 
 def generate_wordlist(options_dict):
@@ -38,8 +38,12 @@ def generate_wordlist(options_dict):
     if end != "?":
         min_length = decrease_length(min_length, len(start))
         max_length = decrease_length(max_length, len(start))
+    else:
+        end = ""
 
-    includes = [include]
+    includes = []
+    if include != '?':
+        includes.append(include)
     if options_dict[Attribute.HAS_LOWER]:
         includes.extend(string.ascii_lowercase)
     if options_dict[Attribute.HAS_UPPER]:
@@ -48,7 +52,6 @@ def generate_wordlist(options_dict):
         includes.extend(string.digits)
     if options_dict[Attribute.HAS_SPECIAL]:
         includes.extend(string.punctuation)
-    for length in range(min_length, max_length + 1):
-        generate_and_add_word(word, includes, length,
-                              wordlist, end)
+    for k in range(min_length, max_length + 1):
+        generate_and_add_word(word, end, includes, len(includes), k, wordlist)
     return wordlist

@@ -7,9 +7,9 @@ def process(input):
     phrase = ""
     if '"' in input:
         s_pos = input.find('"')
-        e_pos = input.find('"', s_pos)
+        e_pos = input.rfind('"')
         phrase = input[s_pos + 1:e_pos]
-        input = input - phrase
+        input = input[:s_pos]
         input = input.strip()
 
     inputs = input.split(" ")
@@ -20,36 +20,38 @@ def process(input):
             return 1
         elif inputs[0] == "execute":
             command.execute()
+        elif inputs[0] == "clear":
+            command.clear_screen()
         else:
             return -1
     elif len(inputs) == 2:
         if inputs[0] == "set":
-            if inputs[1] == Attribute.START:
+            if inputs[1] == Attribute.START.value:
                 command.set_start_with(phrase)
-            elif inputs[1] == Attribute.END:
+            elif inputs[1] == Attribute.END.value:
                 command.set_end_with(phrase)
-            elif inputs[1] == Attribute.INCLUDE:
+            elif inputs[1] == Attribute.INCLUDE.value:
                 command.set_include(phrase)
             else:
                 return -1
-    elif len(inputs == 3):
+    elif len(inputs) == 3:
         if inputs[0] == "set":
             if inputs[2].isdigit():
-                if inputs[1] == Attribute.MAX:
+                if inputs[1] == Attribute.MAX.value:
                     command.set_max_length(inputs[2])
-                elif inputs[1] == Attribute.MIN:
+                elif inputs[1] == Attribute.MIN.value:
                     command.set_min_length(inputs[2])
                 else:
                     return -1
             elif inputs[2] in ["True", "False"]:
                 res = inputs[2] == "True"
-                if inputs[1] == Attribute.HAS_UPPER:
+                if inputs[1] == Attribute.HAS_UPPER.value:
                     command.set_has_upper(res)
-                elif inputs[1] == Attribute.HAS_LOWER:
+                elif inputs[1] == Attribute.HAS_LOWER.value:
                     command.set_has_lower(res)
-                elif inputs[1] == Attribute.HAS_SPECIAL:
+                elif inputs[1] == Attribute.HAS_SPECIAL.value:
                     command.set_has_special(res)
-                elif inputs[1] == Attribute.HAS_DIGIT:
+                elif inputs[1] == Attribute.HAS_DIGIT.value:
                     command.set_has_digit(res)
                 else:
                     return -1
@@ -62,7 +64,7 @@ def process(input):
 
 def error(exp):
     if exp is not None:
-        print(exp.args)
+        print(exp.with_traceback())
     else:
         print("bad input!")
 
@@ -80,4 +82,5 @@ def main():
 
 
 if __name__ == '__main__':
+    command.clear_screen()
     main()
