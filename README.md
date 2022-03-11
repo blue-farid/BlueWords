@@ -1,1 +1,6 @@
-A wordlist generator that can be used for brute force attacks
+A wordlist generator that can be used for brute force attacks!
+
+How to use?
+  - clone project.
+  - run the main.py.
+  - enter 'help' on shell and read documentation.
