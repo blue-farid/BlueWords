@@ -1,6 +1,7 @@
 import string
 
 from command import Attribute
+from pathlib import Path
 
 
 def decrease_length(length, n):
@@ -10,19 +11,20 @@ def decrease_length(length, n):
     return res
 
 
-def generate_and_add_word(prefix, suffix, includes, length, k, wordlist):
+def generate_and_add_word(prefix, suffix, includes, length, k, wordlist_file):
     if k == 0:
-        wordlist.append(prefix + suffix)
+        word = prefix + suffix + "\n"
+        print(word, end="")
+        wordlist_file.write(word)
         return
 
     for i in range(length):
         new_prefix = prefix + str(includes[i])
         generate_and_add_word(new_prefix, suffix, includes,
-                              length, k - 1, wordlist)
+                              length, k - 1, wordlist_file)
 
 
 def generate_wordlist(options_dict):
-    wordlist = []
     word = ""
     start = options_dict[Attribute.START]
     end = options_dict[Attribute.END]
@@ -36,8 +38,8 @@ def generate_wordlist(options_dict):
         word = start
 
     if end != "?":
-        min_length = decrease_length(min_length, len(start))
-        max_length = decrease_length(max_length, len(start))
+        min_length = decrease_length(min_length, len(end))
+        max_length = decrease_length(max_length, len(end))
     else:
         end = ""
 
@@ -52,6 +54,10 @@ def generate_wordlist(options_dict):
         includes.extend(string.digits)
     if options_dict[Attribute.HAS_SPECIAL]:
         includes.extend(string.punctuation)
+
+    # open the wordlist file
+    path = Path("wordlist.txt")
+    wordlist_file = path.open("a")
+
     for k in range(min_length, max_length + 1):
-        generate_and_add_word(word, end, includes, len(includes), k, wordlist)
-    return wordlist
+        generate_and_add_word(word, end, includes, len(includes), k, wordlist_file)

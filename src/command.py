@@ -15,10 +15,10 @@ class Attribute(Enum):
     HAS_UPPER = "has_upper"
 
 
-options_dict = {Attribute.MIN: 5,
-                Attribute.MAX: 5,
-                Attribute.START: '?',
-                Attribute.END: '?',
+options_dict = {Attribute.MIN: 3,
+                Attribute.MAX: 3,
+                Attribute.START: 'F',
+                Attribute.END: 'M',
                 Attribute.INCLUDE: '?',
                 Attribute.HAS_SPECIAL: "False",
                 Attribute.HAS_DIGIT: "True",
@@ -69,11 +69,12 @@ def set_has_upper(has_upper):
 
 
 def clear_screen():
-    os.system('clear')
+    if "Windows" in os.name:
+        os.system('cls')
+    else:
+        os.system('clear')
 
 
 def execute():
     from blue_words import generate_wordlist
-    wordlist = generate_wordlist(options_dict)
-    for word in wordlist:
-        print(word)
+    generate_wordlist(options_dict)
