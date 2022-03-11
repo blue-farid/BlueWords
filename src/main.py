@@ -22,6 +22,8 @@ def process(input):
             command.execute()
         elif inputs[0] == "clear":
             command.clear_screen()
+        elif inputs[0] == "help":
+            command.print_help()
         else:
             return -1
     elif len(inputs) == 2:
@@ -76,6 +78,7 @@ def main():
             if res == -1:
                 error(None)
             elif res == 1:
+                command.save_changes()
                 exit(0)
         except Exception as exp:
             error(exp)
