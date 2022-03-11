@@ -18,7 +18,12 @@ options_dict = {Attribute.MIN: 5,
                 Attribute.MAX: 5,
                 Attribute.START: '?',
                 Attribute.END: '?',
-                Attribute.INCLUDE: '?'}
+                Attribute.INCLUDE: '?',
+                Attribute.HAS_SPECIAL: "False",
+                Attribute.HAS_DIGIT: "True",
+                Attribute.HAS_UPPER: "True",
+                Attribute.HAS_LOWER: "True"
+                }
 
 
 def print_options():
