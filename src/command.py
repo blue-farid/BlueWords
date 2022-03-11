@@ -1,5 +1,6 @@
 import os
 from enum import Enum
+from distutils.util import strtobool
 
 
 class Attribute(Enum):
@@ -15,15 +16,15 @@ class Attribute(Enum):
     HAS_UPPER = "has_upper"
 
 
-options_dict = {Attribute.MIN: 3,
-                Attribute.MAX: 3,
+options_dict = {Attribute.MIN: 9,
+                Attribute.MAX: 10,
                 Attribute.START: 'F',
                 Attribute.END: 'M',
-                Attribute.INCLUDE: '?',
-                Attribute.HAS_SPECIAL: "False",
-                Attribute.HAS_DIGIT: "True",
-                Attribute.HAS_UPPER: "True",
-                Attribute.HAS_LOWER: "True"
+                Attribute.INCLUDE: 'text',
+                Attribute.HAS_SPECIAL: False,
+                Attribute.HAS_DIGIT: True,
+                Attribute.HAS_UPPER: True,
+                Attribute.HAS_LOWER: True
                 }
 
 
@@ -33,11 +34,11 @@ def print_options():
 
 
 def set_min_length(min):
-    options_dict[Attribute.MIN] = min
+    options_dict[Attribute.MIN] = int(min)
 
 
 def set_max_length(max):
-    options_dict[Attribute.MAX] = max
+    options_dict[Attribute.MAX] = int(max)
 
 
 def set_start_with(start):
@@ -53,19 +54,19 @@ def set_include(include):
 
 
 def set_has_digit(has_digit):
-    options_dict[Attribute.HAS_DIGIT] = has_digit
+    options_dict[Attribute.HAS_DIGIT] = strtobool(has_digit)
 
 
 def set_has_special(has_special):
-    options_dict[Attribute.HAS_SPECIAL] = has_special
+    options_dict[Attribute.HAS_SPECIAL] = strtobool(has_special)
 
 
 def set_has_lower(has_lower):
-    options_dict[Attribute.HAS_LOWER] = has_lower
+    options_dict[Attribute.HAS_LOWER] = strtobool(has_lower)
 
 
 def set_has_upper(has_upper):
-    options_dict[Attribute.HAS_UPPER] = has_upper
+    options_dict[Attribute.HAS_UPPER] = strtobool(has_upper)
 
 
 def clear_screen():

@@ -2,6 +2,7 @@ import string
 
 from command import Attribute
 from pathlib import Path
+from more_itertools import distinct_permutations
 
 
 def decrease_length(length, n):
@@ -11,16 +12,20 @@ def decrease_length(length, n):
     return res
 
 
-def generate_and_add_word(prefix, suffix, includes, length, k, wordlist_file):
+def generate_and_add_word(start, prefix, end, must_include, includes, length, k, wordlist_file):
     if k == 0:
-        word = prefix + suffix + "\n"
-        print(word, end="")
-        wordlist_file.write(word)
+        temp_list = [must_include]
+        temp_list.extend(prefix)
+        temp_list2 = list(distinct_permutations(temp_list))
+        for word in temp_list2:
+            word = start + ''.join(word) + end + "\n"
+            print(word, end="")
+            wordlist_file.write(word)
         return
 
     for i in range(length):
         new_prefix = prefix + str(includes[i])
-        generate_and_add_word(new_prefix, suffix, includes,
+        generate_and_add_word(start, new_prefix, end, must_include, includes,
                               length, k - 1, wordlist_file)
 
 
@@ -28,14 +33,15 @@ def generate_wordlist(options_dict):
     word = ""
     start = options_dict[Attribute.START]
     end = options_dict[Attribute.END]
-    include = options_dict[Attribute.INCLUDE]
+    must_include = options_dict[Attribute.INCLUDE]
     min_length = options_dict[Attribute.MIN]
     max_length = options_dict[Attribute.MAX]
 
     if start != "?":
         min_length = decrease_length(min_length, len(start))
         max_length = decrease_length(max_length, len(start))
-        word = start
+    else:
+        start = ""
 
     if end != "?":
         min_length = decrease_length(min_length, len(end))
@@ -44,8 +50,12 @@ def generate_wordlist(options_dict):
         end = ""
 
     includes = []
-    if include != '?':
-        includes.append(include)
+    if must_include != '?':
+        min_length = decrease_length(min_length, len(must_include))
+        max_length = decrease_length(max_length, len(must_include))
+    else:
+        must_include = ""
+
     if options_dict[Attribute.HAS_LOWER]:
         includes.extend(string.ascii_lowercase)
     if options_dict[Attribute.HAS_UPPER]:
@@ -60,6 +70,6 @@ def generate_wordlist(options_dict):
     wordlist_file = path.open("a")
 
     for k in range(min_length, max_length + 1):
-        generate_and_add_word(word, end, includes, len(includes), k, wordlist_file)
+        generate_and_add_word(start, word, end, must_include, includes, len(includes), k, wordlist_file)
 
     wordlist_file.close()
