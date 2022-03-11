@@ -14,36 +14,36 @@ class Attribute(Enum):
     HAS_UPPER = "has_upper_case_character"
 
 
-options_dict = {Attribute.MIN: 5,
-                Attribute.MAX: 5,
-                Attribute.START: '?',
-                Attribute.END: '?',
-                Attribute.INCLUDE: '?'}
+options_dict = {Attribute.MIN.value: 5,
+                Attribute.MAX.value: 5,
+                Attribute.START.value: '?',
+                Attribute.END.value: '?',
+                Attribute.INCLUDE.value: '?'}
 
 
 def print_options():
-    for option, value in options_dict:
+    for option, value in options_dict.items():
         print(f"{option} = {value}")
 
 
 def set_min_length(min):
-    options_dict[Attribute.MIN] = min
+    options_dict[Attribute.MIN.value] = min
 
 
 def set_max_length(max):
-    options_dict[Attribute.MAX] = max
+    options_dict[Attribute.MAX.value] = max
 
 
 def set_start_with(start):
-    options_dict[Attribute.START] = start
+    options_dict[Attribute.START.value] = start
 
 
 def set_end_with(end):
-    options_dict[Attribute.END] = end
+    options_dict[Attribute.END.value] = end
 
 
 def set_include(include):
-    options_dict[Attribute.INCLUDE] = include
+    options_dict[Attribute.INCLUDE.value] = include
 
 
 def set_has_digit(has_digit):
