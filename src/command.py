@@ -99,7 +99,7 @@ def set_has_upper(has_upper):
 
 
 def clear_screen():
-    if "Windows" in os.name:
+    if os.name == 'nt':
         os.system('cls')
     else:
         os.system('clear')
