@@ -1,7 +1,6 @@
 import json
 import os
 from enum import Enum
-from distutils.util import strtobool
 
 
 class Attribute(Enum):
