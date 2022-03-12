@@ -23,7 +23,7 @@ with open('options.json') as options_file:
 HELP_MESSAGE = """
 commands:
     - options: show options and attributes that you can set
-    - set [option] [value]: assign to an option a value.
+    - set [option] [value]: assigns to an option a value.
         - list of the attributes that you can set:
             - min_length: specifies the min_length of the password
                 - example: set min_length 5
@@ -50,10 +50,10 @@ commands:
             - has_upper: specifies that the password contains upper-case characters or not (True or False)
             - has_lower: specifies that the password contains lower-case characters or not (True or False)
     
-    - clear: clear screen
+    - clear: clears the screen
     - help: prints this message
     - execute: generates the wordlist
-    - exit: save and terminate the app
+    - exit: saves and terminates the app
 """
 
 
